@@ -1,0 +1,25 @@
+.event-card {
+  background-color: #e7e8e8;
+  border: 1px solid #bebebe;
+  border-radius: 4px;
+  display: grid;
+  overflow: hidden;
+}
+
+.event-label {
+  background-color: white;
+  padding: 4px 8px;
+}
+
+.event-table {
+  padding: 8px;
+}
+
+th {
+  min-width: 125px;
+  text-align: left;
+}
+
+td {
+  padding: 4px;
+}
