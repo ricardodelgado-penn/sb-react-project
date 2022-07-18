@@ -45,7 +45,45 @@ const SbContent = () => {
             ...teamTwo,
             name: capitalize(teamTwo.name),
             bets: teamTwoBets,
-          }
+          },
+          buttons: [
+            {
+              key: 'team-one-ml',
+              betKeys: {
+                eventId,
+                teamId: teamOne.id,
+                betId: teamOneBets[0].id
+              },
+              lineage: teamOneBets[0].lineage
+            },
+            {
+              key: 'team-one-spread',
+              betKeys: {
+                eventId,
+                teamId: teamOne.id,
+                betId: teamOneBets[1].id
+              },
+              lineage: teamOneBets[1].lineage
+            },
+            {
+              key: 'team-two-ml',
+              betKeys: {
+                eventId,
+                teamId: teamTwo.id,
+                betId: teamTwoBets[0].id
+              },
+              lineage: teamTwoBets[0].lineage
+            },
+            {
+              key: 'team-two-spread',
+              betKeys: {
+                eventId,
+                teamId: teamTwo.id,
+                betId: teamTwoBets[1].id
+              },
+              lineage: teamTwoBets[1].lineage
+            }
+          ]
         }
       })
     }))
@@ -53,7 +91,7 @@ const SbContent = () => {
     setRows(rowsData)
   }, [data.sports])
 
-  const handleClick = (eventId, betId, teamId) => {
+  const handleClick = ({ eventId, betId, teamId }) => {
     submitBet({
       eventId,
       betId,
@@ -67,29 +105,13 @@ const SbContent = () => {
         <SbEventRow key={sport.key} name={sport.key.toUpperCase()}>
           {sport.events.map(event => (
             <SbEventCard key={event.eventId} event={event}>
-              <SbButton
-                key="team-one-ml"
-                onClick={() => handleClick(event.eventId, event.teamOne.bets[0].id, event.teamOne.id)}>
-                {event.teamOne.bets[0].lineage}
-              </SbButton>
-
-              <SbButton
-                key="team-one-spread"
-                onClick={() => handleClick(event.eventId, event.teamOne.bets[1].id, event.teamOne.id)}>
-                  {event.teamOne.bets[1].lineage}
-              </SbButton>
-
-              <SbButton
-                key="team-two-ml"
-                onClick={() => handleClick(event.eventId, event.teamTwo.bets[0].id, event.teamTwo.id)}>
-                {event.teamTwo.bets[0].lineage}
-              </SbButton>
-
-              <SbButton
-                key="team-two-spread"
-                onClick={() => handleClick(event.eventId, event.teamTwo.bets[1].id, event.teamTwo.id)}>
-                {event.teamTwo.bets[1].lineage}
-              </SbButton>
+              {event.buttons.map(button => (
+                <SbButton
+                  key={button.key}
+                  onClick={() => handleClick(button.betKeys)}>
+                  {button.lineage}
+                </SbButton>
+              ))}
             </SbEventCard>
           ))}
         </SbEventRow>
