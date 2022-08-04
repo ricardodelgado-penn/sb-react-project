@@ -1,6 +1,6 @@
 import '../styles/EventCard.scoped.scss'
 
-const SbEventCard = ({ children, event }) => {
+export default function SbEventCard({ children, event }) {
   const teamOneMl = children.find(child => child.key === 'team-one-ml')
   const teamOneSpread = children.find(child => child.key === 'team-one-spread')
 
@@ -31,5 +31,3 @@ const SbEventCard = ({ children, event }) => {
     </div>
   )
 }
-
-export default SbEventCard
